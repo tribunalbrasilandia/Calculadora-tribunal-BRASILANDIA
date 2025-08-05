@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Penas - Brasilândia RP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-black via-red-900 to-gray-900 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black py-6 px-8 rounded-2xl shadow-2xl border-4 border-yellow-500 mb-6 relative overflow-hidden">
+                <!-- Background Pattern -->
+                <div class="absolute inset-0 opacity-10">
+                    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-black/20 to-transparent"></div>
+                </div>
+                
+                <!-- Logos and Title -->
+                <div class="relative z-10 flex items-center justify-center space-x-8 mb-4">
+                    <img src="https://i.imgur.com/duLSu8w.png" alt="Ministério Público" class="h-16 w-auto drop-shadow-lg">
+                    <div class="text-center">
+                        <h1 class="text-4xl font-bold mb-1">TRIBUNAL DE JUSTIÇA</h1>
+                        <div class="w-32 h-1 bg-black/30 mx-auto rounded-full"></div>
+                    </div>
+                    <img src="https://i.imgur.com/0nl9DgQ.png" alt="Brasilândia" class="h-16 w-auto drop-shadow-lg">
+                </div>
+                
+                <h2 class="text-2xl font-bold mb-2">CALCULADORA DE PENAS</h2>
+                <p class="text-lg font-semibold">Comarca de Brasilândia - Estado de São Paulo</p>
+                <div class="mt-3 flex justify-center space-x-4 text-sm font-medium">
+                    <span class="bg-black/20 px-3 py-1 rounded-full">Sistema Oficial</span>
+                    <span class="bg-black/20 px-3 py-1 rounded-full">Poder Judiciário</span>
+                </div>
+            </div>
+            
+            <!-- Status Bar -->
+            <div class="bg-gradient-to-r from-red-900/40 to-black/40 border-2 border-red-500/50 rounded-xl py-3 px-6 inline-block backdrop-blur-sm">
+                <div class="flex items-center justify-center space-x-4 text-red-200">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        <span class="text-sm font-medium">Sistema Online</span>
+                    </div>
+                    <div class="w-px h-4 bg-red-500/50"></div>
+                    <span class="text-sm">🔒 Acesso Autorizado</span>
+                    <div class="w-px h-4 bg-red-500/50"></div>
+                    <span class="text-sm">⚖️ Versão 2024.1</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-6xl mx-auto grid lg:grid-cols-3 gap-6">
+            <!-- Seleção de Crimes -->
+            <div class="bg-gradient-to-br from-black/90 to-red-900/20 backdrop-blur-lg rounded-2xl p-6 border-2 border-red-600/50 shadow-2xl relative overflow-hidden">
+                <!-- Panel Header -->
+                <div class="bg-gradient-to-r from-red-800/30 to-yellow-600/20 -mx-6 -mt-6 px-6 py-4 mb-6 border-b border-red-500/30">
+                    <h2 class="text-2xl font-bold text-white flex items-center">
+                        <span class="bg-red-600 p-2 rounded-lg mr-3 shadow-lg">⚖️</span>
+                        Selecionar Crimes
+                    </h2>
+                </div>
+                
+                <!-- Busca -->
+                <div class="mb-6">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <span class="text-yellow-400 text-lg">🔍</span>
+                        </div>
+                        <input type="text" id="buscarCrime" class="w-full pl-12 pr-4 py-3 rounded-xl bg-gradient-to-r from-gray-900 to-black border-2 border-yellow-500/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 transition-all shadow-inner" placeholder="Buscar crime ou artigo...">
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                            <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categorias -->
+                <div class="space-y-4">
+                    <!-- Trânsito -->
+                    <div class="bg-gradient-to-r from-red-900/30 to-yellow-900/20 border-2 border-red-600/40 rounded-xl p-4 shadow-lg hover:shadow-xl transition-all">
+                        <h3 class="text-lg font-bold text-yellow-300 mb-3 cursor-pointer flex items-center justify-between hover:text-yellow-200 transition-colors" onclick="toggleCategoria('transito')">
+                            <span class="flex items-center">
+                                <span class="bg-yellow-600 p-2 rounded-lg mr-3 text-black shadow-md">🚗</span>
+                                TRÂNSITO
+                            </span>
+                            <span id="arrow-transito" class="text-xl font-bold">▼</span>
+                        </h3>
+                        <div id="categoria-transito" class="space-y-2 max-h-60 overflow-y-auto">
+                            <!-- Crimes de trânsito serão inseridos aqui -->
+                        </div>
+                    </div>
+
+                    <!-- Crimes contra a Pessoa -->
+                    <div class="bg-gradient-to-r from-red-900/40 to-red-800/20 border-2 border-red-500/50 rounded-xl p-4 shadow-lg hover:shadow-xl transition-all">
+                        <h3 class="text-lg font-bold text-red-300 mb-3 cursor-pointer flex items-center justify-between hover:text-red-200 transition-colors" onclick="toggleCategoria('pessoa')">
+                            <span class="flex items-center">
+                                <span class="bg-red-600 p-2 rounded-lg mr-3 text-white shadow-md">👤</span>
+                                CRIMES CONTRA A PESSOA
+                            </span>
+                            <span id="arrow-pessoa" class="text-xl font-bold">▼</span>
+                        </h3>
+                        <div id="categoria-pessoa" class="space-y-2 max-h-60 overflow-y-auto">
+                            <!-- Crimes contra pessoa serão inseridos aqui -->
+                        </div>
+                    </div>
+
+                    <!-- Crimes contra o Patrimônio -->
+                    <div class="bg-gradient-to-r from-yellow-900/30 to-green-900/20 border-2 border-yellow-600/40 rounded-xl p-4 shadow-lg hover:shadow-xl transition-all">
+                        <h3 class="text-lg font-bold text-yellow-300 mb-3 cursor-pointer flex items-center justify-between hover:text-yellow-200 transition-colors" onclick="toggleCategoria('patrimonio')">
+                            <span class="flex items-center">
+                                <span class="bg-yellow-600 p-2 rounded-lg mr-3 text-black shadow-md">💰</span>
+                                CRIMES CONTRA O PATRIMÔNIO
+                            </span>
+                            <span id="arrow-patrimonio" class="text-xl font-bold">▼</span>
+                        </h3>
+                        <div id="categoria-patrimonio" class="space-y-2 max-h-60 overflow-y-auto">
+                            <!-- Crimes contra patrimônio serão inseridos aqui -->
+                        </div>
+                    </div>
+
+                    <!-- Crimes contra a Ordem Pública -->
+                    <div class="bg-gradient-to-r from-purple-900/30 to-red-900/20 border-2 border-purple-600/40 rounded-xl p-4 shadow-lg hover:shadow-xl transition-all">
+                        <h3 class="text-lg font-bold text-purple-300 mb-3 cursor-pointer flex items-center justify-between hover:text-purple-200 transition-colors" onclick="toggleCategoria('ordem')">
+                            <span class="flex items-center">
+                                <span class="bg-purple-600 p-2 rounded-lg mr-3 text-white shadow-md">🏛️</span>
+                                CRIMES CONTRA A ORDEM PÚBLICA
+                            </span>
+                            <span id="arrow-ordem" class="text-xl font-bold">▼</span>
+                        </h3>
+                        <div id="categoria-ordem" class="space-y-2 max-h-60 overflow-y-auto">
+                            <!-- Crimes contra ordem pública serão inseridos aqui -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Crimes Selecionados e Reduções -->
+            <div class="bg-gradient-to-br from-black/90 to-yellow-900/20 backdrop-blur-lg rounded-2xl p-6 border-2 border-yellow-500/50 shadow-2xl relative overflow-hidden">
+                <!-- Panel Header -->
+                <div class="bg-gradient-to-r from-yellow-800/30 to-red-600/20 -mx-6 -mt-6 px-6 py-4 mb-6 border-b border-yellow-500/30">
+                    <h2 class="text-2xl font-bold text-white flex items-center">
+                        <span class="bg-yellow-600 p-2 rounded-lg mr-3 shadow-lg text-black">📋</span>
+                        Crimes Selecionados
+                    </h2>
+                </div>
+                
+                <!-- Lista de crimes selecionados -->
+                <div id="crimesSelecionados" class="mb-6 space-y-2 max-h-40 overflow-y-auto">
+                    <p class="text-white/60 text-sm">Nenhum crime selecionado</p>
+                </div>
+
+                <button onclick="limparCrimes()" class="w-full mb-6 bg-red-800/40 hover:bg-red-700/60 border-2 border-red-500 text-red-200 font-medium py-2 px-4 rounded-lg transition-all">
+                    🗑️ Limpar Seleção
+                </button>
+
+                <!-- Reduções -->
+                <div class="bg-gradient-to-r from-green-900/20 to-blue-900/20 rounded-xl p-4 mb-6 border border-green-500/30">
+                    <h3 class="text-xl font-bold text-green-300 mb-4 flex items-center">
+                        <span class="bg-green-600 p-2 rounded-lg mr-3 shadow-md text-white">📉</span>
+                        Reduções Aplicáveis
+                    </h3>
+                
+                    <div class="space-y-3">
+                        <label class="flex items-center space-x-3 cursor-pointer bg-gray-800/30 p-3 rounded-lg hover:bg-gray-700/30 transition-all">
+                            <input type="checkbox" id="advogado" class="w-5 h-5 rounded border-2 border-yellow-500/50 bg-gray-800 text-yellow-500 focus:ring-yellow-400">
+                            <span class="text-white text-sm font-medium">⚖️ Advogado presente (-10%)</span>
+                        </label>
+                        
+                        <label class="flex items-center space-x-3 cursor-pointer bg-gray-800/30 p-3 rounded-lg hover:bg-gray-700/30 transition-all">
+                            <input type="checkbox" id="primario" class="w-5 h-5 rounded border-2 border-yellow-500/50 bg-gray-800 text-yellow-500 focus:ring-yellow-400">
+                            <span class="text-white text-sm font-medium">🆕 Réu primário (-15%)</span>
+                        </label>
+                        
+                        <label class="flex items-center space-x-3 cursor-pointer bg-gray-800/30 p-3 rounded-lg hover:bg-gray-700/30 transition-all">
+                            <input type="checkbox" id="colaboracao" class="w-5 h-5 rounded border-2 border-yellow-500/50 bg-gray-800 text-yellow-500 focus:ring-yellow-400">
+                            <span class="text-white text-sm font-medium">🤝 Colaboração (-20%)</span>
+                        </label>
+                        
+                        <label class="flex items-center space-x-3 cursor-pointer bg-gray-800/30 p-3 rounded-lg hover:bg-gray-700/30 transition-all">
+                            <input type="checkbox" id="bomComportamento" class="w-5 h-5 rounded border-2 border-yellow-500/50 bg-gray-800 text-yellow-500 focus:ring-yellow-400">
+                            <span class="text-white text-sm font-medium">😇 Bom comportamento (-10%)</span>
+                        </label>
+                        
+                        <label class="flex items-center space-x-3 cursor-pointer bg-gray-800/30 p-3 rounded-lg hover:bg-gray-700/30 transition-all">
+                            <input type="checkbox" id="confissao" class="w-5 h-5 rounded border-2 border-yellow-500/50 bg-gray-800 text-yellow-500 focus:ring-yellow-400">
+                            <span class="text-white text-sm font-medium">💬 Confissão (-12%)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Redução Personalizada -->
+                <div class="mb-6">
+                    <label class="block text-white font-medium mb-2">🎯 Redução Adicional (%)</label>
+                    <input type="number" id="reducaoExtra" class="w-full px-3 py-2 rounded-lg bg-gray-900 border-2 border-yellow-500/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400" placeholder="Ex: 5" min="0" max="100">
+                </div>
+
+                <button onclick="calcularPena()" class="w-full bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600 hover:from-yellow-500 hover:via-yellow-400 hover:to-yellow-500 text-black font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 border-3 border-yellow-400 shadow-2xl relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                    <span class="relative z-10 text-lg">⚖️ CALCULAR SENTENÇA</span>
+                </button>
+            </div>
+
+            <!-- Resultado -->
+            <div class="bg-gradient-to-br from-black/90 to-red-900/20 backdrop-blur-lg rounded-2xl p-6 border-2 border-red-600/50 shadow-2xl relative overflow-hidden">
+                <!-- Panel Header -->
+                <div class="bg-gradient-to-r from-red-800/30 to-yellow-600/20 -mx-6 -mt-6 px-6 py-4 mb-6 border-b border-red-500/30">
+                    <h2 class="text-2xl font-bold text-white flex items-center">
+                        <span class="bg-red-600 p-2 rounded-lg mr-3 shadow-lg">📊</span>
+                        Resultado da Sentença
+                    </h2>
+                </div>
+                
+                <div id="resultado" class="space-y-6">
+                    <div class="text-center text-white/60 py-8">
+                        <div class="text-6xl mb-4">⚖️</div>
+                        <p>Preencha os dados ao lado para calcular a pena</p>
+                    </div>
+                </div>
+
+                <!-- Histórico -->
+                <div class="mt-8">
+                    <h3 class="text-xl font-semibold text-white mb-4">📜 Histórico de Cálculos</h3>
+                    <div id="historico" class="space-y-2 max-h-60 overflow-y-auto">
+                        <p class="text-white/60 text-sm">Nenhum cálculo realizado ainda</p>
+                    </div>
+                    <button onclick="limparHistorico()" class="mt-4 text-red-400 hover:text-red-300 text-sm underline">
+                        🗑️ Limpar Histórico
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let historico = [];
+        let crimesSelecionados = [];
+
+        // Base de dados dos crimes
+        const codigoPenal = {
+            transito: [
+                {artigo: "ART. 218", nome: "Alta Velocidade", servicos: 0, multa: 600, obs: "Limite de velocidade dentro da cidade de 120km/h e de veículos de grande porte, 90km/h. Aumenta-se R$ 25,00 a cada 20 km/h excedido."},
+                {artigo: "ART. 175", nome: "Direção Perigosa", servicos: 0, multa: 2000, obs: "Uso negligente ou imprudente de um veículo"},
+                {artigo: "ART. 181", nome: "Estacionar em local proibido", servicos: 0, multa: 650, obs: "Deixar o veículo em local indevido"},
+                {artigo: "ART. 173", nome: "Disputar corrida", servicos: 0, multa: 650, obs: "Praticar rachas/corridas ilegais"},
+                {artigo: "ART. 183", nome: "Avançar sinal vermelho", servicos: 0, multa: 650, obs: "Insufilme, carro rebaixado"},
+                {artigo: "ART. 181", nome: "Veículo Abandonado", servicos: 0, multa: 700, obs: "Abandonar veículo em local indevido"},
+                {artigo: "ART. 176", nome: "Transitar na contramão", servicos: 0, multa: 600, obs: "Andar na via de mão contrária"},
+                {artigo: "ART. 304", nome: "Omissão de Socorro", servicos: 0, multa: 650, obs: "Quando o causador do dano ou lesão ao cidadão, abandona o local sem prestar socorro"},
+                {artigo: "ART. 162", nome: "Falta de combustível", servicos: 0, multa: 150, obs: "Ter seu veículo imobilizado na via por falta de combustível"},
+                {artigo: "ART. 162", nome: "Dirigir sem habilitação", servicos: 0, multa: 150, obs: "Dirigir sem possuir habilitação, podendo ser recolhida a atenção do veículo"},
+                {artigo: "ART. 210", nome: "Ultrapassar blitz", servicos: 0, multa: 850, obs: "Transpor, sem autorização, bloqueio viário policial"},
+                {artigo: "ART. 165-A", nome: "Recusar-se a ser submetido ao teste do bafômetro", servicos: 0, multa: 1000, obs: "Resistência para realizar o teste do bafômetro"},
+                {artigo: "ART. 218", nome: "Seguir veículo policial que esteja em situação emergencial", servicos: 0, multa: 1000, obs: "Seguir viaturas em ocorrências, fugas ou socorro"},
+                {artigo: "ART. 244", nome: "Conduzir motocicletas sem usar capacete", servicos: 0, multa: 1300, obs: "Trafegar com motos sem capacete"},
+                {artigo: "ART. 194", nome: "Transitar de marcha ré", servicos: 0, multa: 300, obs: "Ultrapassar faixa de retenção para realizar manobra de ultrapassagem"},
+                {artigo: "ART. 199", nome: "Ultrapassar pela direita", servicos: 0, multa: 1000, obs: "Utilizar a faixa da direita para realizar uma ultrapassagem"}
+            ],
+            pessoa: [
+                {artigo: "Art.121", nome: "Homicídio", servicos: 40, multa: 850, obs: "Matar alguém"},
+                {artigo: "Art.121-A", nome: "Homicídio de funcionário público", servicos: 60, multa: 3000, obs: "Matar funcionário público, durante a sua função ou em razão dela"},
+                {artigo: "Art.121-B", nome: "Homicídio culposo", servicos: 30, multa: 1500, obs: "Matar alguém em razão de imprudência, negligência ou imperícia"},
+                {artigo: "Art.129", nome: "Lesão corporal", servicos: 3, multa: 550, obs: "Ofender a integridade física ou saúde de outrem"},
+                {artigo: "Art.130", nome: "Calúnia", servicos: 10, multa: 450, obs: "Imputar falsamente a alguém fato definido como crime"},
+                {artigo: "Art.139", nome: "Difamação", servicos: 10, multa: 450, obs: "Imputar fato ofensivo à sua reputação alheia"},
+                {artigo: "Art.147", nome: "Ameaça", servicos: 10, multa: 600, obs: "Ameaçar alguém, por qualquer meio, de causar mal injusto e grave"},
+                {artigo: "Art.148", nome: "Sequestro e cárcere privado", servicos: 40, multa: 1500, obs: "Privar alguém de sua liberdade, mediante sequestro ou cárcere privado"},
+                {artigo: "Art.3", nome: "Genocídio", servicos: 60, multa: 3000, obs: "Praticar homicídio doloso, direcionado por motivos de etnia ou condição do sexo feminino"},
+                {artigo: "Art.129 III", nome: "Lesão corporal seguida de morte", servicos: 30, multa: 1500, obs: "Ofender a integridade física ou saúde de outrem"},
+                {artigo: "Art.287", nome: "Incitação e/ou apologia ao crime", servicos: 25, multa: 850, obs: "Fazer apologia de fato criminoso ou de autor de crime, elogiar a prática de crimes"}
+            ],
+            patrimonio: [
+                {artigo: "Art.155 I", nome: "Furto qualificado", servicos: 30, multa: 550, obs: "Subtrair, para si ou para outrem, coisa alheia móvel"},
+                {artigo: "Art.155", nome: "Furto", servicos: 25, multa: 350, obs: "Subtrair, para si ou para outrem, coisa alheia móvel"},
+                {artigo: "Art.157", nome: "Roubo", servicos: 40, multa: 750, obs: "Subtrair coisa alheia móvel, para si ou para outrem, mediante violência ou grave ameaça"},
+                {artigo: "Art.157-B", nome: "Roubo seguido de morte (latrocínio)", servicos: 50, multa: 1000, obs: "Subtrair coisa alheia móvel, para si ou outrem, mediante violência ou grave ameaça, com resultado morte"},
+                {artigo: "Art.157 II", nome: "Roubo qualificado", servicos: 50, multa: 900, obs: "Apropriar-se de bens, valores ou dinheiro sob sua responsabilidade"},
+                {artigo: "Art.171", nome: "Estelionato", servicos: 12, multa: 2500, obs: "Obter, para si ou outrem, vantagem ilícita, em prejuízo alheio, por meio de fraude, erro, artifício ou ardil"},
+                {artigo: "Art.126", nome: "Desmonte de veículos", servicos: 10, multa: 2500, obs: "Adquirir, receber, transportar, desmontar, conduzir ou ocultar, automotor terrestre"},
+                {artigo: "Art.180", nome: "Recepção", servicos: 10, multa: 2500, obs: "Adquirir, receber, transportar, conduzir ou ocultar, em proveito próprio ou alheio, coisa que saiba ser produto de crime"}
+            ],
+            ordem: [
+                {artigo: "Art.200-A", nome: "Roupas Policiais", servicos: 50, multa: 5000, obs: "Utilizar qualquer acessório ou roupa de uso exclusivamente policial"},
+                {artigo: "Art.200-B", nome: "Roupas Militares", servicos: 50, multa: 5000, obs: "Utilizar qualquer acessório ou roupa de cunho militar (coletes, etc) em locais públicos como Hospital, Mecânicas, Praça, Delegia"},
+                {artigo: "Art.200-C", nome: "Ocultação facial", servicos: 5, multa: 1000, obs: "Utilizar máscaras ou vestes que tampem o rosto em locais públicos como Hospital, Mecânicas, Praça, Delegia"},
+                {artigo: "Art.288", nome: "Produtos ilícitos", servicos: 10, multa: 2000, obs: "Portar ou possuir objetos ilícitos, conforme decreto judicial"},
+                {artigo: "Art.288", nome: "Associação Criminosa", servicos: 15, multa: 2000, obs: "Associar-se em 03 ou mais pessoas, para o fim específico de cometer crimes"},
+                {artigo: "Art.289", nome: "Dinheiro ilícito", servicos: 18, multa: 1500, obs: "Portar dinheiro ilícito"},
+                {artigo: "Art.299", nome: "Falsidade ideológica", servicos: 15, multa: 1750, obs: "Falsificar, no todo ou em parte, documento particular, ou alterar ou atestar vantagem ou prejudicar outrem"},
+                {artigo: "Art.330", nome: "Desobediência", servicos: 10, multa: 1500, obs: "Desacatar a ordem legal de funcionário público"},
+                {artigo: "Art.331", nome: "Desacato", servicos: 12, multa: 1500, obs: "Desacatar funcionário público no exercício da função ou em razão dela, com intuito de menosprezá-lo"},
+                {artigo: "Art.333", nome: "Corrupção", servicos: 15, multa: 2500, obs: "Oferecer ou prometer vantagem indevida a funcionário público, em razão da função pública. Parágrafo único: o fato constitui crime, salvo quando não houver violação"},
+                {artigo: "Art.337", nome: "Suborno", servicos: 25, multa: 2500, obs: "Obter, para si ou para outrem, vantagem indevida, em função pública"},
+                {artigo: "Art.339", nome: "Denúncia caluniosa", servicos: 12, multa: 1750, obs: "Causar a instauração de investigação policial ou processo judicial, contra alguém, imputando-lhe crime de que sabe ser inocente"},
+                {artigo: "Art.342", nome: "Falso testemunho", servicos: 10, multa: 1500, obs: "Fazer afirmação falsa, negar ou calar verdade, na posição da testemunha"},
+                {artigo: "Art.311", nome: "Uso de pessoas utilizando máscara", servicos: 12, multa: 2500, obs: "Utilizar máscara ou objetos por razões de terrorismo contra órgãos públicos quando cometido com finalidade de terror"},
+                {artigo: "Art.355", nome: "Abuso de autoridade", servicos: 12, multa: 5000, obs: "Abusar da posição pública, no intuito de obter vantagem ou promover injusto à outrem, conforme decreto judicial"},
+                {artigo: "Art.357", nome: "Obstrução de Justiça", servicos: 32, multa: 5000, obs: "Atrapalhar o andamento de instrução processual ou de ordem judicial"},
+                {artigo: "Art.16", nome: "Porte ou posse ilegal de arma classe 1", servicos: 14, multa: 2000, obs: "Porte ou posse ilegal de armamento semi-automático"},
+                {artigo: "Art.17", nome: "Porte ou posse ilegal de arma classe 2", servicos: 14, multa: 3000, obs: "Porte ou posse ilegal de armamento automático"},
+                {artigo: "Art.18", nome: "Tráfico de munições", servicos: 10, multa: 3500, obs: "Porte de múltiplas unidades, dependerá da comprovação de dolo de comercialização/traficância para configurar o crime"},
+                {artigo: "Art.19", nome: "Tráfico de armamento", servicos: 20, multa: 5000, obs: "Posse ou porte de 02 armamentos, impedindo-se o uso de ambos"},
+                {artigo: "Art.33", nome: "Tráfico de drogas", servicos: 25, multa: 5000, obs: "Posse de mais de 02 entorpecentes, interditando-se o máximo de 04 unidades"}
+            ]
+        };
+
+        // Inicializar a aplicação
+        document.addEventListener('DOMContentLoaded', function() {
+            carregarCrimes();
+            configurarBusca();
+        });
+
+        function carregarCrimes() {
+            // Carregar crimes de trânsito
+            const transitoDiv = document.getElementById('categoria-transito');
+            transitoDiv.innerHTML = codigoPenal.transito.map(crime => criarElementoCrime(crime, 'transito')).join('');
+
+            // Carregar crimes contra a pessoa
+            const pessoaDiv = document.getElementById('categoria-pessoa');
+            pessoaDiv.innerHTML = codigoPenal.pessoa.map(crime => criarElementoCrime(crime, 'pessoa')).join('');
+
+            // Carregar crimes contra o patrimônio
+            const patrimonioDiv = document.getElementById('categoria-patrimonio');
+            patrimonioDiv.innerHTML = codigoPenal.patrimonio.map(crime => criarElementoCrime(crime, 'patrimonio')).join('');
+
+            // Carregar crimes contra a ordem pública
+            const ordemDiv = document.getElementById('categoria-ordem');
+            ordemDiv.innerHTML = codigoPenal.ordem.map(crime => criarElementoCrime(crime, 'ordem')).join('');
+        }
+
+        function criarElementoCrime(crime, categoria) {
+            const id = `${categoria}-${crime.artigo.replace(/[^a-zA-Z0-9]/g, '')}`;
+            return `
+                <div class="crime-item bg-gray-900/50 rounded-lg p-3 border border-red-600/30 hover:bg-red-900/20 hover:border-red-500/50 transition-all cursor-pointer" 
+                     onclick="toggleCrime('${id}', ${JSON.stringify(crime).replace(/"/g, '&quot;')})">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2">
+                                <input type="checkbox" id="${id}" class="w-4 h-4 rounded border-2 border-yellow-500/50 bg-gray-800 text-yellow-500">
+                                <span class="text-white font-medium text-sm">${crime.artigo}</span>
+                            </div>
+                            <p class="text-white/80 text-sm mt-1">${crime.nome}</p>
+                            <div class="flex space-x-4 mt-2 text-xs">
+                                ${crime.servicos > 0 ? `<span class="text-red-300">⏰ ${crime.servicos} meses</span>` : ''}
+                                <span class="text-yellow-300">💰 R$ ${crime.multa.toLocaleString('pt-BR')}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleCrime(id, crime) {
+            const checkbox = document.getElementById(id);
+            checkbox.checked = !checkbox.checked;
+            
+            if (checkbox.checked) {
+                adicionarCrime(crime);
+            } else {
+                removerCrime(crime.artigo);
+            }
+            
+            atualizarCrimesSelecionados();
+        }
+
+        function adicionarCrime(crime) {
+            const existe = crimesSelecionados.find(c => c.artigo === crime.artigo && c.nome === crime.nome);
+            if (!existe) {
+                crimesSelecionados.push(crime);
+            }
+        }
+
+        function removerCrime(artigo) {
+            crimesSelecionados = crimesSelecionados.filter(c => c.artigo !== artigo);
+        }
+
+        function calcularPena() {
+            if (crimesSelecionados.length === 0) {
+                alert('⚠️ Por favor, selecione pelo menos um crime');
+                return;
+            }
+
+            // Calcular totais
+            let multaTotal = crimesSelecionados.reduce((total, crime) => total + crime.multa, 0);
+            let tempoTotal = crimesSelecionados.reduce((total, crime) => total + crime.servicos, 0);
+
+            // Calcular reduções
+            let reducaoTotal = 0;
+            let reducoesList = [];
+
+            if (document.getElementById('advogado').checked) {
+                reducaoTotal += 10;
+                reducoesList.push('Advogado presente (10%)');
+            }
+            
+            if (document.getElementById('primario').checked) {
+                reducaoTotal += 15;
+                reducoesList.push('Réu primário (15%)');
+            }
+            
+            if (document.getElementById('colaboracao').checked) {
+                reducaoTotal += 20;
+                reducoesList.push('Colaboração com a justiça (20%)');
+            }
+            
+            if (document.getElementById('bomComportamento').checked) {
+                reducaoTotal += 10;
+                reducoesList.push('Bom comportamento (10%)');
+            }
+            
+            if (document.getElementById('confissao').checked) {
+                reducaoTotal += 12;
+                reducoesList.push('Confissão espontânea (12%)');
+            }
+
+            const reducaoExtra = parseFloat(document.getElementById('reducaoExtra').value) || 0;
+            if (reducaoExtra > 0) {
+                reducaoTotal += reducaoExtra;
+                reducoesList.push(`Redução adicional (${reducaoExtra}%)`);
+            }
+
+            // Limitar redução máxima a 80%
+            if (reducaoTotal > 80) {
+                reducaoTotal = 80;
+            }
+
+            // Calcular valores finais
+            const multaFinal = multaTotal * (1 - reducaoTotal / 100);
+            const tempoFinal = tempoTotal * (1 - reducaoTotal / 100);
+
+            // Exibir resultado
+            exibirResultado(multaTotal, tempoTotal, multaFinal, tempoFinal, reducaoTotal, reducoesList);
+            
+            // Adicionar ao histórico
+            adicionarAoHistorico(multaTotal, tempoTotal, multaFinal, tempoFinal, reducaoTotal);
+        }
+
+        function atualizarCrimesSelecionados() {
+            const div = document.getElementById('crimesSelecionados');
+            
+            if (crimesSelecionados.length === 0) {
+                div.innerHTML = '<p class="text-white/60 text-sm">Nenhum crime selecionado</p>';
+                return;
+            }
+            
+            div.innerHTML = crimesSelecionados.map(crime => `
+                <div class="bg-white/5 rounded-lg p-2 border border-white/10">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="text-white font-medium text-sm">${crime.artigo}</span>
+                            <p class="text-white/80 text-xs">${crime.nome}</p>
+                            <div class="flex space-x-3 mt-1 text-xs">
+                                ${crime.servicos > 0 ? `<span class="text-orange-300">⏰ ${crime.servicos}m</span>` : ''}
+                                <span class="text-green-300">💰 R$ ${crime.multa.toLocaleString('pt-BR')}</span>
+                            </div>
+                        </div>
+                        <button onclick="removerCrimeSelecionado('${crime.artigo}')" class="text-red-400 hover:text-red-300 text-xs">
+                            ❌
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function removerCrimeSelecionado(artigo) {
+            // Desmarcar checkbox
+            const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+            allCheckboxes.forEach(checkbox => {
+                if (checkbox.id.includes(artigo.replace(/[^a-zA-Z0-9]/g, ''))) {
+                    checkbox.checked = false;
+                }
+            });
+            
+            removerCrime(artigo);
+            atualizarCrimesSelecionados();
+        }
+
+        function limparCrimes() {
+            crimesSelecionados = [];
+            // Desmarcar todos os checkboxes
+            const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+            allCheckboxes.forEach(checkbox => {
+                if (checkbox.id.includes('transito-') || checkbox.id.includes('pessoa-') || checkbox.id.includes('patrimonio-') || checkbox.id.includes('ordem-')) {
+                    checkbox.checked = false;
+                }
+            });
+            atualizarCrimesSelecionados();
+        }
+
+        function toggleCategoria(categoria) {
+            const div = document.getElementById(`categoria-${categoria}`);
+            const arrow = document.getElementById(`arrow-${categoria}`);
+            
+            if (div.style.display === 'none') {
+                div.style.display = 'block';
+                arrow.textContent = '▼';
+            } else {
+                div.style.display = 'none';
+                arrow.textContent = '▶';
+            }
+        }
+
+        function configurarBusca() {
+            const busca = document.getElementById('buscarCrime');
+            busca.addEventListener('input', function(e) {
+                const termo = e.target.value.toLowerCase();
+                const crimes = document.querySelectorAll('.crime-item');
+                
+                crimes.forEach(crime => {
+                    const texto = crime.textContent.toLowerCase();
+                    if (texto.includes(termo)) {
+                        crime.style.display = 'block';
+                    } else {
+                        crime.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        function exibirResultado(multaBase, tempoBase, multaFinal, tempoFinal, reducaoTotal, reducoesList) {
+            const resultado = document.getElementById('resultado');
+            
+            resultado.innerHTML = `
+                <div class="bg-green-500/20 border border-green-400/30 rounded-lg p-4 mb-4">
+                    <h3 class="text-green-300 font-semibold mb-2">✅ Sentença Calculada</h3>
+                    <div class="text-white space-y-1">
+                        ${multaBase > 0 ? `<p><strong>💰 Multa:</strong> R$ ${multaFinal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>` : ''}
+                        ${tempoBase > 0 ? `<p><strong>⏰ Prisão:</strong> ${tempoFinal.toFixed(1)} meses</p>` : ''}
+                        <p><strong>📉 Redução Total:</strong> ${reducaoTotal}%</p>
+                    </div>
+                </div>
+
+                <div class="bg-blue-500/20 border border-blue-400/30 rounded-lg p-4 mb-4">
+                    <h4 class="text-blue-300 font-medium mb-2">📋 Crimes Aplicados</h4>
+                    <div class="text-white text-sm space-y-1 max-h-32 overflow-y-auto">
+                        ${crimesSelecionados.map(crime => `
+                            <div class="flex justify-between">
+                                <span>${crime.artigo} - ${crime.nome}</span>
+                                <span class="text-green-300">R$ ${crime.multa.toLocaleString('pt-BR')} ${crime.servicos > 0 ? `| ${crime.servicos}m` : ''}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                ${multaBase > 0 ? `
+                <div class="bg-purple-500/20 border border-purple-400/30 rounded-lg p-4 mb-4">
+                    <h4 class="text-purple-300 font-medium mb-2">💰 Detalhes da Multa</h4>
+                    <div class="text-white text-sm space-y-1">
+                        <p>Valor original: R$ ${multaBase.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+                        <p>Desconto aplicado: R$ ${(multaBase - multaFinal).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+                        <p class="font-semibold text-green-300">Valor final: R$ ${multaFinal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+                    </div>
+                </div>
+                ` : ''}
+
+                ${tempoBase > 0 ? `
+                <div class="bg-orange-500/20 border border-orange-400/30 rounded-lg p-4 mb-4">
+                    <h4 class="text-orange-300 font-medium mb-2">⏰ Detalhes da Prisão</h4>
+                    <div class="text-white text-sm space-y-1">
+                        <p>Tempo original: ${tempoBase} meses</p>
+                        <p>Redução aplicada: ${(tempoBase - tempoFinal).toFixed(1)} meses</p>
+                        <p class="font-semibold text-green-300">Tempo final: ${tempoFinal.toFixed(1)} meses</p>
+                    </div>
+                </div>
+                ` : ''}
+
+                ${reducoesList.length > 0 ? `
+                <div class="bg-yellow-500/20 border border-yellow-400/30 rounded-lg p-4">
+                    <h4 class="text-yellow-300 font-medium mb-2">📋 Reduções Aplicadas</h4>
+                    <ul class="text-white text-sm space-y-1">
+                        ${reducoesList.map(reducao => `<li>• ${reducao}</li>`).join('')}
+                    </ul>
+                </div>
+                ` : ''}
+            `;
+        }
+
+        function adicionarAoHistorico(multaBase, tempoBase, multaFinal, tempoFinal, reducaoTotal) {
+            const agora = new Date().toLocaleString('pt-BR');
+            const crimesTexto = crimesSelecionados.map(c => c.artigo).join(', ');
+            const item = {
+                data: agora,
+                crimes: crimesTexto,
+                multaBase,
+                tempoBase,
+                multaFinal,
+                tempoFinal,
+                reducaoTotal
+            };
+            
+            historico.unshift(item);
+            if (historico.length > 10) historico.pop();
+            
+            atualizarHistorico();
+        }
+
+        function atualizarHistorico() {
+            const historicoDiv = document.getElementById('historico');
+            
+            if (historico.length === 0) {
+                historicoDiv.innerHTML = '<p class="text-white/60 text-sm">Nenhum cálculo realizado ainda</p>';
+                return;
+            }
+            
+            historicoDiv.innerHTML = historico.map(item => `
+                <div class="bg-white/5 rounded-lg p-3 border border-white/10">
+                    <div class="text-white/80 text-xs mb-1">${item.data}</div>
+                    <div class="text-white/60 text-xs mb-1">${item.crimes}</div>
+                    <div class="text-white text-sm">
+                        ${item.multaBase > 0 ? `💰 R$ ${item.multaBase.toLocaleString('pt-BR')} → R$ ${item.multaFinal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}` : ''}
+                        ${item.multaBase > 0 && item.tempoBase > 0 ? ' | ' : ''}
+                        ${item.tempoBase > 0 ? `⏰ ${item.tempoBase}m → ${item.tempoFinal.toFixed(1)}m` : ''}
+                        <span class="text-green-300 ml-2">(-${item.reducaoTotal}%)</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function limparHistorico() {
+            if (confirm('Tem certeza que deseja limpar o histórico?')) {
+                historico = [];
+                atualizarHistorico();
+            }
+        }
+
+        // Auto-calcular quando houver mudanças nas reduções
+        document.addEventListener('change', function(e) {
+            if (e.target.type === 'checkbox' && !e.target.id.includes('transito-') && !e.target.id.includes('pessoa-') && !e.target.id.includes('patrimonio-') && !e.target.id.includes('ordem-')) {
+                if (crimesSelecionados.length > 0) {
+                    calcularPena();
+                }
+            }
+        });
+
+        document.addEventListener('input', function(e) {
+            if (e.target.id === 'reducaoExtra') {
+                clearTimeout(window.autoCalcTimer);
+                window.autoCalcTimer = setTimeout(() => {
+                    if (crimesSelecionados.length > 0) {
+                        calcularPena();
+                    }
+                }, 1000);
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96a302eec069280c',t:'MTc1NDM2MjQ4My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
